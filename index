@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NETTECH COMMUNICATIONS LIMITED — ICT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-deep:#0A2246;
+    --navy:#123B7A;
+    --blue:#1E5FB8;
+    --cyan:#3FCBE0;
+    --mist:#F3F6FB;
+    --white:#FFFFFF;
+    --ink:#0E1B2E;
+    --ink-soft:#4C5A70;
+    --line:#DCE4F0;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.brand,.stat-num{font-family:'Space Grotesk', sans-serif;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:.06em;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+  /* signal pulse background used behind hero */
+  @keyframes pulse{
+    0%{transform:scale(.85); opacity:.55;}
+    100%{transform:scale(1.6); opacity:0;}
+  }
+  .reduce-motion .pulse-ring{animation:none !important;}
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,34,70,.96);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0;}
+  .brand{color:var(--white); font-size:1.15rem; font-weight:700; display:flex; align-items:center; gap:10px;}
+  .brand .mark{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg, var(--cyan), var(--blue));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono'; font-weight:700; color:var(--navy-deep); font-size:.8rem;
+  }
+  .nav-links{display:flex; gap:28px; align-items:center;}
+  .nav-links a{color:#C9D6EC; font-size:.92rem; font-weight:500; transition:color .2s;}
+  .nav-links a:hover{color:var(--cyan);}
+  .lang-toggle{
+    display:flex; border:1px solid rgba(255,255,255,.25); border-radius:999px; overflow:hidden;
+  }
+  .lang-toggle button{
+    background:transparent; border:none; color:#C9D6EC; padding:6px 14px; font-size:.78rem;
+    font-family:'JetBrains Mono'; cursor:pointer; transition:.2s;
+  }
+  .lang-toggle button.active{background:var(--cyan); color:var(--navy-deep); font-weight:700;}
+  .nav-cta{
+    background:var(--cyan); color:var(--navy-deep); padding:10px 20px; border-radius:999px;
+    font-weight:700; font-size:.88rem;
+  }
+  .burger{display:none; color:var(--white); font-size:1.4rem; background:none; border:none;}
+
+  /* Hero */
+  .hero{
+    position:relative; overflow:hidden;
+    background:radial-gradient(120% 140% at 15% 0%, var(--navy) 0%, var(--navy-deep) 55%, #071730 100%);
+    color:var(--white);
+    padding:88px 0 100px;
+  }
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center; position:relative; z-index:2;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--cyan); border:1px solid rgba(63,203,224,.4); padding:6px 12px; border-radius:999px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan);}
+  .hero h1{font-size:clamp(2.2rem, 4.2vw, 3.4rem); line-height:1.05; font-weight:700; letter-spacing:-.02em;}
+  .hero h1 .accent{color:var(--cyan);}
+  .hero p.lede{margin-top:20px; font-size:1.08rem; color:#B9C7E0; max-width:520px; line-height:1.6;}
+  .hero-actions{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--cyan); color:var(--navy-deep); padding:14px 26px; border-radius:10px;
+    font-weight:700; font-size:.95rem; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{
+    border:1px solid rgba(255,255,255,.3); color:var(--white); padding:14px 26px; border-radius:10px;
+    font-weight:600; font-size:.95rem;
+  }
+  .hero-stats{display:flex; gap:34px; margin-top:48px; flex-wrap:wrap;}
+  .stat-num{font-size:1.7rem; font-weight:700; color:var(--white);}
+  .stat-label{font-size:.78rem; color:#8FA3C6; margin-top:2px;}
+
+  /* hero visual: signature radial network signature */
+  .hero-visual{position:relative; height:420px; display:flex; align-items:center; justify-content:center;}
+  .pulse-ring{
+    position:absolute; width:280px; height:280px; border:1px solid rgba(63,203,224,.5); border-radius:50%;
+    animation:pulse 3.2s ease-out infinite;
+  }
+  .pulse-ring:nth-child(2){animation-delay:.8s;}
+  .pulse-ring:nth-child(3){animation-delay:1.6s;}
+  .hub{
+    position:relative; z-index:3; width:150px; height:150px; border-radius:50%;
+    background:linear-gradient(145deg, var(--cyan), var(--blue));
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 60px rgba(63,203,224,.45);
+  }
+  .hub-inner{
+    width:110px; height:110px; border-radius:50%; background:var(--navy-deep);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2px;
+  }
+  .hub-inner span{font-family:'JetBrains Mono'; font-size:.62rem; color:var(--cyan); letter-spacing:.08em;}
+  .node{
+    position:absolute; width:52px; height:52px; border-radius:12px; background:var(--white);
+    display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+    box-shadow:0 8px 22px rgba(0,0,0,.35); z-index:3;
+  }
+  .node.n1{top:6%; left:2%;}
+  .node.n2{top:10%; right:0%;}
+  .node.n3{bottom:8%; left:8%;}
+  .node.n4{bottom:2%; right:10%;}
+
+  /* Section shared */
+  section{padding:84px 0;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .kicker{font-family:'JetBrains Mono'; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); margin-bottom:10px; display:block;}
+  .section-head h2{font-size:clamp(1.6rem, 3vw, 2.3rem); font-weight:700; letter-spacing:-.01em;}
+  .section-head p{color:var(--ink-soft); margin-top:14px; font-size:1.02rem; line-height:1.6;}
+
+  /* Partners strip */
+  .partners{background:var(--mist); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:34px 0;}
+  .partners .wrap{display:flex; align-items:center; gap:36px; flex-wrap:wrap; justify-content:space-between;}
+  .partners .p-label{font-family:'JetBrains Mono'; font-size:.72rem; color:var(--ink-soft); letter-spacing:.1em; text-transform:uppercase;}
+  .partner-logos{display:flex; gap:32px; flex-wrap:wrap; align-items:center;}
+  .partner-logos span{font-weight:700; color:var(--navy); font-size:.98rem; opacity:.75;}
+
+  /* Services grid */
+  .solutions-grid{display:grid; grid-template-columns:repeat(5, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .sol-card{background:var(-- --navy blue); padding:28px 22px; transition:background .2s;}
+  .sol-card:hover{background:var(--mist);}
+  .sol-icon{width:42px; height:42px; border-radius:10px; background:var(--navy-deep); color:var(--cyan); display:flex; align-items:center; justify-content:center; font-size:1.15rem; margin-bottom:16px;}
+  .sol-card h3{font-size:1.02rem; font-weight:700; margin-bottom:12px;}
+  .sol-card ul{list-style:none; display:flex; flex-direction:column; gap:6px;}
+  .sol-card li{font-size:.85rem; color:var(--ink-soft); position:relative; padding-left:14px;}
+  .sol-card li::before{content:"—"; position:absolute; left:0; color:var(--blue); font-size:.75rem;}
+
+  /* Why choose us */
+  .why{background:var(--navy-deep); color:var(--white);}
+  .why .section-head p{color:#A9B9D6;}
+  .why-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:24px;}
+  .why-card{padding:26px 22px; border:1px solid rgba(255,255,255,.1); border-radius:var(--radius); background:rgba(255,255,255,.03);}
+  .why-num{font-family:'JetBrains Mono'; color:var(--cyan); font-size:.78rem; margin-bottom:14px; display:block;}
+  .why-card h3{font-size:1.02rem; margin-bottom:8px; font-weight:600;}
+  .why-card p{font-size:.86rem; color:#A9B9D6; line-height:1.55;}
+
+  /* Contact strip */
+  .contact-strip{background:linear-gradient(120deg, var(--navy), var(--blue)); color:var(--white); border-radius:20px; padding:44px; display:grid; grid-template-columns:1.3fr 1fr auto; gap:32px; align-items:center; margin:0 24px;}
+  .contact-strip h3{font-size:1.5rem; font-weight:700; margin-bottom:8px;}
+  .contact-strip p{color:#D7E2F5; font-size:.95rem;}
+  .phones a{display:block; font-family:'JetBrains Mono'; font-size:1.15rem; font-weight:600; margin-top:6px; color:var(--white);}
+  .qr-box{background:var(--white); color:var(--navy-deep); padding:16px 20px; border-radius:12px; text-align:center; font-size:.78rem; font-weight:600; line-height:1.4;}
+  .qr-box .qr-glyph{width:64px; height:64px; margin:0 auto 8px; background:repeating-conic-gradient(var(--navy-deep) 0% 25%, transparent 0% 50%) 0 0/16px 16px;}
+
+  /* Messenger footer card */
+  .msg-card{max-width:1180px; margin:70px auto 0; padding:0 24px;}
+  .msg-inner{border:1px solid var(--line); border-radius:var(--radius); padding:22px 26px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .msg-left{display:flex; align-items:center; gap:14px;}
+  .msg-icon{width:44px; height:44px; border-radius:12px; background:var(--navy-deep); color:var(--cyan); display:flex; align-items:center; justify-content:center; font-size:1.2rem;}
+  .msg-left h4{font-size:1rem; font-weight:700;}
+  .msg-left span{font-size:.82rem; color:var(--ink-soft);}
+  .btn-msg{background:var(--ink); color:var(--white); padding:12px 22px; border-radius:10px; font-weight:600; font-size:.9rem;}
+
+  footer{margin-top:60px; border-top:1px solid var(--line); padding:36px 0; text-align:center; color:var(--ink-soft); font-size:.84rem;}
+
+  [data-i18n]{transition:opacity .15s;}
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{height:300px; order:-1;}
+    .solutions-grid{grid-template-columns:repeat(2, 1fr);}
+    .why-grid{grid-template-columns:repeat(2, 1fr);}
+    .contact-strip{grid-template-columns:1fr; text-align:left;}
+    .qr-box{justify-self:start;}
+  }
+  @media(max-width:640px){
+    .nav-links{display:none;}
+    .burger{display:block;}
+    .solutions-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .partners .wrap{flex-direction:column; align-items:flex-start;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .pulse-ring{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap">
+    <div class="brand"><span class="mark"></span> NETTECH COMMUNICATIONS LIMITED</div>
+    <div class="nav-links">
+      <a href="#services" data-i18n="nav.solutions">Services</a>
+      <a href="#why" data-i18n="nav.why">Why us</a>
+      <a href="#partners" data-i18n="nav.partners">Partners</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div class="lang-toggle">
+        <button data-lang="en" class="active">ENG</button>
+        <button data-lang="sw">SWA</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav.cta">Talk to us</a>
+      <button class="burger">☰</button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">Connecting people. Powering business.solving problems.</span></span>
+      <h1 data-i18n="hero.title">ICT &amp; Telecom infrastructure built to <span class="accent">keep you online</span>.</h1>
+      <p class="lede" data-i18n="hero.lede">From a single office phone system to enterprise networks, we design, install and support the technology that keeps your business talking, connected and secure.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary" data-i18n="hero.cta1">Get a free consultation →</a>
+        <a href="#solutions" class="btn-ghost" data-i18n="hero.cta2">See our solutions</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">1.5+</div><div class="stat-label" data-i18n="hero.stat1">Years in the field</div></div>
+        <div><div class="stat-num">30+</div><div class="stat-label" data-i18n="hero.stat2">Businesses connected</div></div>
+        <div><div class="stat-num">24/7</div><div class="stat-label" data-i18n="hero.stat3">Support desk</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="pulse-ring"></div>
+      <div class="hub"><div class="hub-inner"><span>NETTECH</span><span>LMT</span></div></div>
+      <div class="node n1">📡</div>
+      <div class="node n2">☎️</div>
+      <div class="node n3">🖥️</div>
+      <div class="node n4">🔒</div>
+    </div>
+  </div>
+</section>
+
+<section class="partners" id="partners">
+  <div class="wrap">
+    <span class="p-label" data-i18n="partners.label">Authorised partners</span>
+    <div class="partner-logos">
+      <span>CCNA</span>
+      <span>UP_TECH COMM</span>
+      <span>TP_LINK</span>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section — restyled to match solutions-grid / sol-card design used site-wide -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" data-i18n="solutions.kicker">What we do</span>
+      <h2 data-i18n="solutions.title">Services built around your business</h2>
+      <p data-i18n="solutions.lede">From web platforms to on-site repairs — explore the full range of technology solutions we provide.</p>
+    </div>
+
+    <div class="solutions-grid">
+
+      <div class="sol-card">
+        <div class="sol-icon">💻</div>
+        <h3>Web &amp; System Development</h3>
+        <ul>
+          <li>Business Websites</li>
+          <li>Hospital systems</li>
+          <li>Saccos systems</li>
+          <li>Billing systems</li>
+          <li>School Management Systems</li>
+          <li>Inventory Management Systems</li>
+          <li>POS Systems</li>
+          <li>Custom Web Applications</li>
+          <li>Database Design (MySQL)</li>
+          <li>Website Redesign</li>
+          <li>Website Maintenance</li>
+          <li>Website Hosting &amp; Domain Setup</li>
+          <li>System Upgrades &amp; Updates</li>
+        </ul>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-icon">🖨️</div>
+        <h3>Online Cyber Services</h3>
+        <ul>
+          <li>Printing (B&amp;W &amp; Color)</li>
+          <li>Photocopying</li>
+          <li>Scanning</li>
+          <li>Lamination</li>
+          <li>Binding</li>
+          <li>Passport Photos</li>
+          <li>CV &amp; Cover Letter Writing</li>
+          <li>KRA &amp;E_Citizen Services</li>
+          <li>HELB,university,TVET and college applications</li>
+          <li>KNEC Services</li>
+          <li>Job Applications</li>
+          <li>Online Registrations</li>
+          <li>Document Typing</li>
+          <li>Email &amp; Internet Services</li>
+          <li>File Download &amp; Upload</li>
+          <li>USB Flashing &amp; File Transfer</li>
+          <li>Projects</li>
+          <li>Games,movies,music downloads and uploads</li>
+        </ul>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-icon">📶</div>
+        <h3>Networking</h3>
+        <ul>
+          <li>Wi-Fi Installation</li>
+          <li>Router,switch Configurations</li>
+          <li>Network Cabling</li>
+          <li>LAN Setup</li>
+          <li>Internet Sharing</li>
+          <li>Network Troubleshooting</li>
+          <li>CCTV installations and Configurations</li>
+          <li>Printer Sharing</li>
+          <li>Network Maintenance</li>
+
+        </ul>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-icon">🔧</div>
+        <h3>Device Repair &amp; Maintenance</h3>
+        <ul>
+          <li>Phone Repair</li>
+          <li>Laptop Repair</li>
+          <li>Desktop Computer Repair</li>
+          <li>Printer Repair</li>
+          <li>Hardware Replacement</li>
+          <li>Software Installation</li>
+          <li>Windows Installation &amp; Upgrade</li>
+          <li>Driver Installation</li>
+          <li>Virus &amp; Malware Removal</li>
+          <li>Data Backup &amp; Recovery</li>
+          <li>System Optimization</li>
+          <li>Device Cleaning &amp; Servicing</li>
+        </ul>
+      </div>
+
+      <div class="sol-card">
+        <div class="sol-icon">🛠️</div>
+        <h3>Technical Support</h3>
+        <ul>
+          <li>Remote Support</li>
+          <li>On-site Support</li>
+          <li>Software Troubleshooting</li>
+          <li>Hardware Troubleshooting</li>
+          <li>User Training</li>
+          <li>Computer &amp; Phone Setup</li>
+          <li>Data Migration</li>
+          <li>Email Setup</li>
+          <li>Regular Maintenance</li>
+          <li>IT Consultancy</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker" style="color:var(--cyan)" data-i18n="why.kicker">Why NETTECH</span>
+      <h2 data-i18n="why.title">Four reasons clients stay with us</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-num">01</span>
+        <h3 data-i18n="why1.title">Comprehensive solutions</h3>
+        <p data-i18n="why1.desc">From web development and networking to device repair and technical support,we provide everything under one roof-saving you the hassle of dealing with multiple providers.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num">02</span>
+        <h3 data-i18n="why2.title">Expertise you can trust</h3>
+        <p data-i18n="why2.desc">Our team combines hands-on experience with deep technical knowlede,ensuring every project is handled proffessionally and efficiently.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num">03</span>
+        <h3 data-i18n="why3.title">Customer- Centered Approach</h3>
+        <p data-i18n="why3.desc">We tailor our service to fit your exact needs,whether you're a school,business,or individual-your goals drive our solution.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-num">04</span>
+        <h3 data-i18n="why4.title">Reliable support and maintenance</h3>
+        <p data-i18n="why4.desc">We dont just deliver and leave;we stay with you through after-sales support,reqular updates, and troubleshooting whenever you need us
+          .</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-strip">
+    <div>
+      <h3 data-i18n="contact.title">Let's connect</h3>
+      <p data-i18n="contact.desc">Tell us what you're building and we'll help you get connected — smarter, safer, and local.</p>
+    </div>
+    <div class="phones">
+      <a href="tel:0742196355">0742196355 -PAUL BARASA (DIRECTOR)</a>
+    </div>
+    <div class="qr-box">
+      <div class="qr-glyph"></div>
+      <span data-i18n="contact.scan">Scan to view products &amp; solutions online</span>
+    </div>
+  </div>
+</section>
+
+<p style="background-color:#007BFF; color:white; padding:10px; border-radius:5px; text-align:center;">
+  <a href="https://wa.me/254742196355" target="_blank" style="color:white; text-decoration:none; font-weight:bold;">
+    Text me via WhatsApp: 07421963555 - Barasa Paul
+  </a>
+</p>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="footer.text">© 2026 NETTECH COMMUNICATION COMPANY. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  const dict = {
+    en: {
+      "nav.solutions":"Solutions", "nav.why":"Why us", "nav.partners":"Partners", "nav.contact":"Contact", "nav.cta":"Talk to us",
+      "hero.eyebrow":"Connecting people. Powering business.",
+      "hero.title":'ICT &amp; Telecom infrastructure built to <span class="accent">keep you online</span>.',
+      "hero.lede":"From a single office phone system to enterprise networks, we design, install and support the technology that keeps your business talking, connected and secure.",
+      "hero.cta1":"Get a free consultation →", "hero.cta2":"See our solutions",
+      "hero.stat1":"Years in the field", "hero.stat2":"Businesses connected", "hero.stat3":"Support desk",
+      "partners.label":"Authorised partners",
+      "solutions.kicker":"What we do", "solutions.title":"Services built around your business",
+      "solutions.lede":"From web platforms to on-site repairs — explore the full range of technology solutions we provide.",
+      "why.kicker":"Why choose us", "why.title":"Four reasons clients stay with us",
+      "why1.title":"Reliable", "why1.desc":"Quality products sourced from trusted global brands.",
+      "why2.title":"Experienced", "why2.desc":"A professional team with deep industry knowledge.",
+      "why3.title":"Customer focused", "why3.desc":"Tailored solutions built around your business needs.",
+      "why4.title":"After-sales support", "why4.desc":"With you at every step, long after installation.",
+      "contact.title":"Let's connect", "contact.desc":"Tell us what you're building and we'll help you get connected — smarter, safer, and local.",
+      "contact.scan":"Scan to view products &amp; solutions online",
+      "msg.title":"Message us directly", "msg.desc":"Usually replies within a few hours", "msg.cta":"Send message",
+      "footer.text":"© 2026 Wide Web Communications Limited. All rights reserved."
+    },
+    sw: {
+      "nav.solutions":"Huduma", "nav.why":"Kwa nini sisi", "nav.partners":"Washirika", "nav.contact":"Wasiliana", "nav.cta":"Zungumza nasi",
+      "hero.eyebrow":"Kuunganisha watu. Kuimarisha biashara.",
+      "hero.title":'Miundombinu ya TEHAMA na Mawasiliano iliyoundwa kukuweka <span class="accent">mtandaoni</span>.',
+      "hero.lede":"Kutoka mfumo mmoja wa simu ofisini hadi mitandao ya kampuni, tunabuni, kusakinisha na kusaidia teknolojia inayoweka biashara yako ikiwasiliana, ikiunganishwa na salama.",
+      "hero.cta1":"Pata ushauri wa bure →", "hero.cta2":"Angalia huduma zetu",
+      "hero.stat1":"Miaka ya uzoefu", "hero.stat2":"Biashara zilizounganishwa", "hero.stat3":"Msaada masaa 24/7",
+      "partners.label":"Washirika waliothibitishwa",
+      "solutions.kicker":"Tunachofanya", "solutions.title":"Huduma zilizoundwa kwa biashara yako",
+      "solutions.lede":"Kutoka mifumo ya wavuti hadi ukarabati wa vifaa — angalia huduma zote za teknolojia tunazotoa.",
+      "why.kicker":"Kwa nini utuchague", "why.title":"Sababu nne wateja wanabaki nasi",
+      "why1.title":"Wa kuaminika", "why1.desc":"Bidhaa bora kutoka kwa chapa zinazoaminika duniani.",
+      "why2.title":"Wenye uzoefu", "why2.desc":"Timu ya kitaalamu yenye maarifa ya kina ya sekta.",
+      "why3.title":"Wanaozingatia mteja", "why3.desc":"Suluhisho zilizolengwa kulingana na mahitaji ya biashara yako.",
+      "why4.title":"Msaada baada ya mauzo", "why4.desc":"Tuko nawe katika kila hatua, muda mrefu baada ya usakinishaji.",
+      "contact.title":"Wasiliana nasi", "contact.desc":"Tuambie unachojenga na tutakusaidia kuunganishwa — kwa akili, salama, na kienyeji.",
+      "contact.scan":"Scan kuona bidhaa na huduma mtandaoni",
+      "msg.title":"Tutumie ujumbe moja kwa moja", "msg.desc":"Kwa kawaida hujibu ndani ya masaa kadhaa", "msg.cta":"Tuma ujumbe",
+      "footer.text":"© 2026 Wide Web Communications Limited. Haki zote zimehifadhiwa."
+    }
+  };
+
+  const buttons = document.querySelectorAll('.lang-toggle button');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const lang = btn.getAttribute('data-lang');
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[lang] && dict[lang][key]) {
+          el.innerHTML = dict[lang][key];
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
